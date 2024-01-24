@@ -1,6 +1,7 @@
 require('dotenv').config();
 //import express package and assign it to the express variable. This is the package that will help us create the server and handle requests and responses to and from the server and client.
 const express = require('express');
+const workoutsRoutes = require('./routes/workouts'); //import the workouts router object from the workouts.js file. This is the router object that will handle all the requests to the /workouts route. We can use this to handle requests to the /workouts route. 
 
 //express app instance. This is the server that will handle requests and responses to and from the client. We can use this to listen for requests and send responses.
 const app = express();
@@ -11,10 +12,8 @@ app.use((req, res, next) => {
   next();
 });
 
-//react to requests to the root URL. We can use this to send a response to the client. In this case, we are sending a JSON object with a message property. This is the response that the client will receive.
-app.get('/' , (req , res) => {
-    res.json({message: "Welcome to the app"})
-});
+app.use("./api/workouts", workoutsRoutes); //use the workouts router object to handle requests to the /workouts route. This is the route that the workouts router object will handle.
+
 
 // listen for requests. By requiring the dotenv package, we can access the port number from the .env file using process.env.PORT instead of hardcoding the port number
 app.listen(process.env.PORT , () => {
