@@ -5,6 +5,7 @@ const express = require('express'); //import express package and assign it to th
 //create a router object
 const router = express.Router(); //express app instance. This is the server that will handle requests and responses to and from the client. We can use this to listen for requests and send responses.
 
+
 router.get('/', ( req, res) => {
   res.json ({ message: 'GET all workouts'});
 })
@@ -25,7 +26,7 @@ router.delete('/:id', (req, res) => {
 })
 
 //UPDATE a workout
-router.put('/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
   res.json({ message: 'UPDATE a workout'});
 })
 
