@@ -1,11 +1,10 @@
-require('dotenv').config();
+require('dotenv').config(); //import the dotenv package and call the config() method. This will allow us to access the environment variables in the .env file using the process.env object.
 //import express package and assign it to the express variable. This is the package that will help us create the server and handle requests and responses to and from the server and client.
-const express = require('express');
-const workoutsRoutes = require('./routes/workouts'); //import the workouts router object from the workouts.js file. This is the router object that will handle all the requests to the /workouts route. We can use this to handle requests to the /workouts route.
+const express = require('express'); //import express package and assign it to the express variable. This is the package that will help us create the server and handle requests and responses to and from the server and client.
 const mongoose = require('mongoose'); //import the mongoose package. This is the package that will help us connect to the MongoDB database.
+const workoutsRoutes = require('./routes/workouts'); //import the workouts router object from the workouts.js file. This is the router object that will handle all the requests to the /workouts route. We can use this to handle requests to the /workouts route.
 
-//express app instance. This is the server that will handle requests and responses to and from the client. We can use this to listen for requests and send responses.
-const app = express();
+const app = express(); //express app instance. This is the server that will handle requests and responses to and from the client. We can use this to listen for requests and send responses.
 
 app.use(express.json()); //use the express.json() middleware to parse the request body. This will allow us to access the request body in the request handler functions.
 
