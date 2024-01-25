@@ -42,13 +42,54 @@ res.status(200).json(workout);
 }
 
 //DELETE a workout
+const deleteWorkout = async (req, res) => {
+  const { id } = req.params;
 
+  if(!mongoose.Types.ObjectId.isValid(id)) { //check if the id is a valid MongoDB ObjectId. The isValid() method returns true if the id is a valid MongoDB ObjectId. The isValid() method takes an id as an argument. The id is the id of the workout document that we want to get from the database.
+    return res.status(404).json({ error: 'workout not found' })
+  }
+
+const workout = await Workout.findOneAndDelete({_id: id}); //get the workout document from the database. The findById() method returns a promise, so we can use the await keyword to wait for the promise to resolve. The await keyword can only be used inside an async function. The findById() method takes an id as an argument. The id is the id of the workout document that we want to get from the database.
+
+if (!workout) { 
+  return res.status(404).json({ error: 'workout not found' }); //send a response to the client. The response body is an object that contains an error message. The response status code is 404, which means that the request was unsuccessful.
+  }
+
+  res.status(200).json(workout); //send a response to the client. The response body is the workout document. The response status code is 200, which means that the request was successful.
+  
+  }
+
+  
 
 //UPDATE a workout
+const updateWorkout = async (req, res) => {
+  const { id } = req.params;
+
+  if(!mongoose.Types.ObjectId.isValid(id)) { //check if the id is a valid MongoDB ObjectId. The isValid() method returns true if the id is a valid MongoDB ObjectId. The isValid() method takes an id as an argument. The id is the id of the workout document that we want to get from the database.
+    return res.status(404).json({ error: 'workout not found' })
+  }
+
+  const workout = await Workout.findOneAndUpdate({_id: id}, {
+   ...req.body, //use the spread operator to get all the properties from the request body. The request body is an object that contains the data that the client sends to the server. The request body is empty by default, so we need to use the express.json() middleware to parse the request body. This will allow us to access the request body in the request handler functions.
+  })
+
+  if (!workout) { 
+    return res.status(400).json({ error: 'workout not found' }); //send a response to the client. The response body is an object that contains an error message. The response status code is 404, which means that the request was unsuccessful.
+    }
+  
+    res.status(200).json(workout); //send a response to the client. The response body is the workout document. The response status code is 200, which means that the request was successful.
+    
+    }
+
+
+
 
 
 module.exports = {
   getAllWorkouts,
   getWorkout,
   createWorkout,
+  deleteWorkout,
+  updateWorkout
+
 }
